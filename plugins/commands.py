@@ -1,4 +1,4 @@
-import os, asyncio, logging, random, re, json, base64, sys, time, psutil
+import os, asyncio, logging, random, re, json, base64, sys, time, psutil, pytz
 from Script import script
 from pyrogram import Client, filters, enums
 from pyrogram.errors import UserNotParticipant, ChatAdminRequired, PeerIdInvalid, FloodWait
@@ -179,14 +179,15 @@ async def start(client, message: Message):
                     caption=f_caption,
                     protect_content=msg.get('protect', False),
                     )
-                # Calculate deletion time: current time + 10 minutes
-                now = datetime.now()
+   # Calculate deletion time in Asia/Kolkata timezone (IST, UTC+5:30)
+                kolkata_tz = pytz.timezone('Asia/Kolkata')
+                now = datetime.now(kolkata_tz)
                 delete_time = now + timedelta(minutes=10)
                 formatted_delete_time = delete_time.strftime("%d-%m-%Y %I:%M %p")  # Format: DD-MM-YYYY HH:MM AM/PM
                 
                 k = await client.send_message(
                     chat_id=message.from_user.id,
-                    text=f"<blockquote><b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\n⚠️ File will be deleted in 10 Mins\n🗑 Deleting at: {formatted_delete_time}\n\n📌 Save or forward it.\n\n<b><i>ᴘʟᴇᴀsᴇ ғᴏʀᴡᴀʀᴅ ᴛʜɪs ᴍᴇssᴀɢᴇ ᴛᴏ ʏᴏᴜʀ sᴀᴠᴇᴅ ᴍᴇssᴀɢᴇs ᴏʀ ᴀɴʏ ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀᴛ.</i></b></blockquote>"
+                    text=f"<blockquote><b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\n⚠️ File will be deleted in 10 Mins\n🗑 Deleting at: {formatted_delete_time}\n\n📌 Save or forward it.</blockquote>"
                 )
                 await asyncio.sleep(600)
                 await m.delete()
@@ -262,14 +263,15 @@ async def start(client, message: Message):
                 file_id=file_id,
                 protect_content=True if pre == 'filep' else False,
                 )
-            # Calculate deletion time: current time + 10 minutes
-            now = datetime.now()
+   # Calculate deletion time in Asia/Kolkata timezone (IST, UTC+5:30)
+            kolkata_tz = pytz.timezone('Asia/Kolkata')
+            now = datetime.now(kolkata_tz)
             delete_time = now + timedelta(minutes=10)
             formatted_delete_time = delete_time.strftime("%d-%m-%Y %I:%M %p")  # Format: DD-MM-YYYY HH:MM AM/PM
     
             k = await client.send_message(
                 chat_id=message.from_user.id,
-                text=f"<blockquote><b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\n⚠️ File will be deleted in 10 Mins\n🗑 Deleting at: {formatted_delete_time}\n\n📌 Save or forward it.\n\n<b><i>ᴘʟᴇᴀsᴇ ғᴏʀᴡᴀʀᴅ ᴛʜɪs ᴍᴇssᴀɢᴇ ᴛᴏ ʏᴏᴜʀ sᴀᴠᴇᴅ ᴍᴇssᴀɢᴇs ᴏʀ ᴀɴʏ ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀᴛ.</i></b></blockquote>"
+                text=f"<blockquote><b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\n⚠️ File will be deleted in 10 Mins\n🗑 Deleting at: {formatted_delete_time}\n\n📌 Save or forward it.</blockquote>"
             )
             await asyncio.sleep(600)
             await m.delete()
@@ -308,14 +310,15 @@ async def start(client, message: Message):
         caption=f_caption,
         protect_content=True if pre == 'filep' else False,
         )
-    # Calculate deletion time: current time + 10 minutes
-    now = datetime.now()
+    # Calculate deletion time in Asia/Kolkata timezone (IST, UTC+5:30)
+    kolkata_tz = pytz.timezone('Asia/Kolkata')
+    now = datetime.now(kolkata_tz)
     delete_time = now + timedelta(minutes=10)
-    formatted_delete_time = delete_time.strftime("%d-%m-%Y %I:%M %p")  # Format: DD-MM-YYYY HH:MM AM/PM
+    formatted_delete_time = delete_time.strftime("%d-%m-%Y %I:%M %p")  # Format: DD-MM-YYYY HH:MM AM/PM 
     
     k = await client.send_message(
         chat_id=message.from_user.id,
-        text=f"<blockquote><b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\n⚠️ File will be deleted in 10 Mins\n🗑 Deleting at: {formatted_delete_time}\n\n📌 Save or forward it.\n\n<b><i>ᴘʟᴇᴀsᴇ ғᴏʀᴡᴀʀᴅ ᴛʜɪs ᴍᴇssᴀɢᴇ ᴛᴏ ʏᴏᴜʀ sᴀᴠᴇᴅ ᴍᴇssᴀɢᴇs ᴏʀ ᴀɴʏ ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀᴛ.</i></b></blockquote>"
+        text=f"<blockquote><b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\n⚠️ File will be deleted in 10 Mins\n🗑 Deleting at: {formatted_delete_time}\n\n📌 Save or forward it.</blockquote>"
     )         
     await asyncio.sleep(600)
     await m.delete()
